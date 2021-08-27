@@ -48,11 +48,71 @@
 
 | 参数名 | 参数说明    | 是否必要           |
 | :----: | ----------- | ------------------ |
-|  port  | web服务端口 | 否,默认端口是13141 |
+|  port  | web服务端口 | 否,默认端口是13142 |
 
 要启动服务，则需要执行以下命令
 
 ```bash
 ./ALIYUN -action server [-port your port]
 ```
+
+### 接口
+
+| 接口地址      | 接口说明                       |
+| ------------- | ------------------------------ |
+| /getUpload    | 创建上传文件请求、得到上传链接 |
+| /complete     | 上传完成时调用此接口           |
+| /directUpload | 直接上传文件到网盘             |
+
+#### /getUpload
+
+##### Method : POST
+
+##### 请求参数
+
+| 参数     | 说明                |
+| -------- | ------------------- |
+| fileName | 文件名              |
+| fileSize | 文件大小(单位:Byte) |
+
+##### 返回
+
+```json
+[
+  "Upload Url",
+  "Upload Id",
+  "File Id"
+]
+```
+
+#### /complete
+
+##### Method : POST
+
+##### 请求参数
+
+| 参数     | 说明                          |
+| -------- | ----------------------------- |
+| fileid   | /getUpload中获取到的file id   |
+| uploadid | /getUpload中获取到的upload id |
+
+##### 返回
+
+```json
+{
+  "result" : 阿里云盘接口返回
+}
+```
+
+#### /directUpload
+
+##### Mehod : POST
+
+#####  请求参数
+
+| 参数 | 参数说明 |
+| ---- | -------- |
+| file | 文件     |
+
+使用form-data传
 
